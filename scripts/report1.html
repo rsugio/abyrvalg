@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><html>
+  <head/>
+  <body>
+    <h1>1)Сбойка канал-поток между PO и CPI</h1>
+    <h2>Сендеры на стороне PO</h2>
+    <ul>
+      <li>|BS_SCPI_Q|CC_SOAPSender_SCPI_Async</li>
+      <li>P_CPQ|BS_SCPI_EU_Q|CC_SOAPSender_XI30</li>
+    </ul>
+    <h2>Вызовы из PO в CPI</h2>
+    <table border="1">
+      <tr>
+        <td>Канал</td>
+        <td>URL</td>
+        <td>Поток в CPI</td>
+        <td>Комментарий</td>
+      </tr>
+      <tr>
+        <td>|BS_SCPI_Q|CC_SCPI_IDOC_Receiver_HYB_Entry</td>
+        <td>https://e450000-iflmap.hcisbt.ru1.hana.ondemand.com/cxf/s4hana/Entry</td>
+        <td>Route_Idocs_From_S4HANA_To_Hybris_Commerce</td>
+        <td>Российский ЦОД</td>
+      </tr>
+      <tr>
+        <td>|BS_SCPI_Q|CC_SCPI_IDOC_Receiver_C4C_MATMAS_CFS</td>
+        <td>https://e450000-iflmap.hcisbt.ru1.hana.ondemand.com/cxf/S4/C4C/MATMAS_CFS.MATMAS05</td>
+        <td>Replicate_Material_from_SAP_Business_Suite</td>
+        <td>Российский ЦОД</td>
+      </tr>
+      <tr>
+        <td>P_COMMERCE_CLOUD|BS_SCPI_EU_Q|CC_SOAPReceiver_ORDERS_SCPI_EU</td>
+        <td>https://ffff.it-cpi000-rt.cfapps.eu10.hana.ondemand.com/cxf/s4/edi/orders</td>
+        <td>ERP_COM_12._EDI_Contract_from_S4_to_Commerce</td>
+        <td>Европейский ЦОД</td>
+      </tr>
+    </table>
+  </body>
+</html>
