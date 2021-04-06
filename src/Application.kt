@@ -1,32 +1,80 @@
 import com.typesafe.config.ConfigFactory
 import com.typesafe.config.ConfigResolveOptions
-import groovy.lang.Binding
 import groovy.util.GroovyScriptEngine
-import io.ktor.client.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.features.cookies.*
-import io.ktor.client.features.logging.*
+import groovy.util.ScriptException
 import io.ktor.util.*
-import kotlinx.coroutines.runBlocking
+import io.rsug.abyrvalg.Config
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.hocon.Hocon
 import java.nio.file.Files
-import java.nio.file.Path
 import java.nio.file.Paths
-import java.time.Instant
 import kotlin.system.exitProcess
 
 @ExperimentalSerializationApi
-fun getConfig(cfgpath: Path): Config {
-    if (Files.isRegularFile(cfgpath)) {
+@KtorExperimentalAPI
+fun main(args: Array<String>) {
+    if (args.size < 2) {
+        System.err.println("""Запуск: АБЫРВАЛГ конфиг.кфг [может_быть_папка/]кмд.груви""")
+        exitProcess(-1)
+    }
+    val cfgpath = Paths.get(args[0])
+    val config = if (Files.isRegularFile(cfgpath)) {
         val text = Files.newBufferedReader(cfgpath).readText()
         val resolved = ConfigFactory.parseString(text).resolve(ConfigResolveOptions.defaults())
-        return Hocon.decodeFromConfig(Config.serializer(), resolved)
+        Hocon.decodeFromConfig(Config.serializer(), resolved)
     } else {
-        println("ЕГГОГ: Не могу найти конфиг: $cfgpath")
+        System.err.println("ЕГГОГ: Не могу найти конфиг: $cfgpath")
         throw NoSuchFileException(cfgpath.toFile())
     }
+
+    val pwd = Paths.get(".").toRealPath().toUri().toURL()
+    val scrpath = Paths.get(args[1])
+    if (!Files.isRegularFile(scrpath)) {
+        System.err.println("ЕГГОГ: Не могу найти скрипт: $scrpath")
+        throw NoSuchFileException(scrpath.toFile())
+    }
+    config.createClient()
+    config.init()
+    val engine = GroovyScriptEngine(arrayOf(pwd))
+    try {
+        val clazz = engine.loadScriptByName(scrpath.toString())
+        val meth = clazz.getDeclaredMethod("abyrvalg", config.javaClass)
+        meth.invoke(clazz, config)
+    } catch (e: ScriptException) {
+        // как только возникнет, понять как выдавать причину
+        e.printStackTrace()
+        System.err.println(e)
+        exitProcess(-1)
+    } catch (e: NoSuchMethodException) {
+        System.err.println(e)
+        System.err.println("Возможная причина - должен быть объявлен: static void abyrvalg(Config cfg)")
+        exitProcess(-1)
+    } catch (e: IllegalArgumentException) {
+        System.err.println(e)
+        System.err.println("Возможная причина - метод void abyrvalg(Config) объявлен не как статический")
+        exitProcess(-1)
+    } catch (e: java.lang.reflect.InvocationTargetException) {
+        e.printStackTrace()
+        exitProcess(-1)
+    } finally {
+        config.client.close()
+    }
+    when (java.time.Instant.now().epochSecond % 5) {
+        0L -> println("\n\nВердикт: Абырвалг доволен, приходите завтра")
+        1L -> println("\n\nО-о-о!... Етит твою мать, профессор!!!")
+        3L -> println("\n\nОкончательная бумажка. Фактическая! Настоящая!! Броня!!!")
+        4L -> println("\n\nДай папиросочку, у тебя брюки в полосочку!")
+    }
+    exitProcess(0)
 }
+/**
+Вариант с передачей конфига в байндинге:
+val binding = Binding()
+binding.setVariable("config", config)
+val dsl = engine.createScript(args[1], binding)
+dsl.run()
+ */
+
 
 /**
 fun parseD(x: String): Long {
@@ -40,55 +88,6 @@ val msk = Clock.system(mskTZ)
 val dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssz").withZone(mskTZ)
 val stx = Regex("&%24skiptoken=\\d+")
  */
-
-@ExperimentalSerializationApi
-@KtorExperimentalAPI
-fun main(args: Array<String>) {
-    val httpLogger = Logger.SIMPLE
-
-    if (args.size < 2) {
-        println("""Запуск: АБЫРВАЛГ конфиг.кфг [может_быть_папка/]кмд.груви""")
-        exitProcess(-1)
-    }
-    val config = getConfig(Paths.get(args[0]))
-    val pwd = Paths.get(".").toRealPath().toUri().toURL()
-
-    config.client = HttpClient(CIO) {
-        engine {
-            threadsCount = 2
-        }
-        install(HttpCookies) {
-            storage = AcceptAllCookiesStorage()
-        }
-        install(Logging) {
-            logger = httpLogger
-            level = config.httpLogLevel // LogLevel.NONE
-        }
-    }
-
-    val binding = Binding()
-    binding.setVariable("config", config)
-    val engine = GroovyScriptEngine(arrayOf(pwd))
-    val dsl = engine.createScript(args[1], binding)
-
-    runBlocking {
-        config.tenants.forEach {
-            val ten = it.value
-            ten.nick = it.key
-            if (ten.autologin) {
-                ten.login(config.client)
-            }
-            println("${ten.nick} autologged=${ten.logged}")
-        }
-        dsl.run()
-    }
-    config.client.close()
-    when (Instant.now().epochSecond % 5) {
-        0L -> println("\n\nВердикт: Абырвалг доволен, приходите завтра")
-        1L -> println("\n\nО-о-о!... Етит твою мать, профессор!!!")
-        3L -> println("\n\nОкончательная бумажка. Фактическая! Настоящая!! Броня!!!")
-        4L -> println("\n\nДай папиросочку, у тебя брюки в полосочку!")
-    }
 
 
 //    val h1: HttpResponse = client.head("$tmn/api/v1/")
@@ -208,8 +207,6 @@ fun main(args: Array<String>) {
 //            }
 //        }
 //    }
-}
-
 
 /**
 var g2: ODataMPL = client.get(u)
