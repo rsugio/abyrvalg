@@ -3,6 +3,7 @@ val kotlin_version = "1.5.0-M2"
 val logback_version: String by project
 
 plugins {
+    idea
     application
     kotlin("jvm") version "1.5.0-M2"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.5.0-M2"
@@ -12,7 +13,7 @@ plugins {
 }
 
 group = "io.rsug"
-version = "0.0.1-build5"
+version = "0.0.1-build6"
 
 application {
     mainClass.set("ApplicationKt")
@@ -52,16 +53,22 @@ dependencies {
 //    implementation("org.apache.groovy:groovy-xml:4.0.0-alpha-2")
 //    implementation("org.apache.groovy:groovy-json:4.0.0-alpha-2")
 
+    testImplementation(kotlin("test-junit"))
+
 }
 
-kotlin.sourceSets["main"].kotlin.srcDirs("src")
-kotlin.sourceSets["test"].kotlin.srcDirs("test")
-
-sourceSets["main"].resources.srcDirs("resources")
-sourceSets["test"].resources.srcDirs("testresources")
+//kotlin.sourceSets["main"].kotlin.srcDirs("src")
+//kotlin.sourceSets["test"].kotlin.srcDirs("test")
+//
+//sourceSets["main"].resources.srcDirs("resources")
+//sourceSets["test"].resources.srcDirs("testresources")
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
     kotlinOptions.jvmTarget = "11"
+}
+
+tasks.test {
+    useJUnit()
 }
 
 tasks.dokkaHtml.configure {

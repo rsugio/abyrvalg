@@ -99,5 +99,9 @@ class WorkspaceCPI(val config: Config, val tenant: Config.Tenant) {
         }
         return
     }
+
+    fun download(ida: IntegrationDesigntimeArtifact):ByteArray? {
+        return null
+    }
 }
 
