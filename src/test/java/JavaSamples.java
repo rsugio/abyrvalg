@@ -15,8 +15,8 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class JavaSamples {
-    Path tmpDir = Paths.get("tmp");
-    Config config;
+    private Path tmpDir = Paths.get("tmp");
+    private Config config;
 
     @Before
     public void config() throws IOException {
@@ -56,7 +56,7 @@ public class JavaSamples {
         for (Config.Tenant ten : config.getTenants().values()) {
             WorkspaceCPI wksp = new WorkspaceCPI(config, ten);
             wksp.retrieve();
-            
+
         }
     }
 

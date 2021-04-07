@@ -1,6 +1,5 @@
 package io.rsug.abyrvalg
 
-import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -13,7 +12,7 @@ import kotlinx.coroutines.runBlocking
 class CheckCapabilitiesCPI(val config: Config, val tenant: Config.Tenant) {
     fun exec(): StringBuilder {
         val caps = StringBuilder()
-        var ok = false
+        var ok: Boolean
         runBlocking {
             tenant.loginIfNeeded(config.client)
             var resp: HttpResponse = config.client.get("${tenant.tmn}/api/v1/\$metadata") {
@@ -44,7 +43,7 @@ class CheckCapabilitiesCPI(val config: Config, val tenant: Config.Tenant) {
             ok = resp.status == HttpStatusCode.OK && resp.contentType()!!.match(ContentType.Application.Json)
             caps.append("/itspaces/api/1.0/configurations : rc=${resp.status.value} API=${if (ok) "Поддерживается" else "НеПоддерживается"}\n")
             if (resp.contentType()!!.match(ContentType.Application.Json)) {
-                val ks = k3.OPConfigurationKeyValue.getMap(resp.readText())
+                val ks = OPConfigurationKeyValue.getMap(resp.readText())
                 ks.entries.forEach {
                     caps.append("\t${it.key} = ${it.value}\n")
                 }
@@ -78,30 +77,45 @@ class WorkspaceCPI(val config: Config, val tenant: Config.Tenant) {
     val packages: MutableList<IntegrationPackage> = mutableListOf()
 
     fun retrieve() {
-        // 1. Получить список всех пакетов
         runBlocking {
-            tenant.loginIfNeeded(config.client)
-            val resp = tenant.getJson(config.client, IntegrationPackages.getUrl(tenant.tmn))
-            val d = IntegrationPackages.parse(resp.readText())
-            require(d.d.__next == "", { "Too many packages! Listing is not implemented yet" })
-            d.d.results.forEach { pack ->
-                packages.add(pack)
-                val respida = tenant.getJson(config.client, pack.IntegrationDesigntimeArtifacts.getUri())
-                val respvm = tenant.getJson(config.client, pack.ValueMappingDesigntimeArtifacts.getUri())
-
-                IntegrationDesigntimeArtifacts.parse(respida.readText()).d.results.forEach { it ->
-                    pack.ida.add(it)
-                }
-                ValueMappingDesigntimeArtifacts.parse(respvm.readText()).d.results.forEach { it ->
-                    pack.vmda.add(it)
-                }
-            }
+            extract()
         }
-        return
     }
 
-    fun download(ida: IntegrationDesigntimeArtifact):ByteArray? {
-        return null
+    suspend fun extract() {
+        // 1. Получить список всех пакетов
+        tenant.loginIfNeeded(config.client)
+        val resp = tenant.getJson(config.client, IntegrationPackages.getUrl(tenant.tmn))
+        val d = IntegrationPackages.parse(resp.readText())
+        require(d.d.__next == "", { "Too many packages! Listing is not implemented yet" })
+        d.d.results.forEach { pack ->
+            packages.add(pack)
+            val respida = tenant.getJson(config.client, pack.IntegrationDesigntimeArtifacts.getUri())
+            val respvm = tenant.getJson(config.client, pack.ValueMappingDesigntimeArtifacts.getUri())
+
+            IntegrationDesigntimeArtifacts.parse(respida.readText()).d.results.forEach { it ->
+                pack.ida.add(it)
+            }
+            ValueMappingDesigntimeArtifacts.parse(respvm.readText()).d.results.forEach { it ->
+                pack.vmda.add(it)
+            }
+        }
+    }
+
+    suspend fun downloads(ida: IntegrationDesigntimeArtifact): ByteArray {
+        require(ida.__metadata.media_src.isNotEmpty())
+        val resp: HttpResponse = config.client.get(ida.__metadata.media_src) {
+            tenant.defaultHeaders(this)
+        }
+        require(resp.status == HttpStatusCode.OK)
+        require(resp.contentType() != null && resp.contentType()!!.match(ContentType.Application.Zip))
+        return resp.readBytes()
+    }
+
+    fun download(ida: IntegrationDesigntimeArtifact): ByteArray {
+        return runBlocking {
+            downloads(ida)
+        }
     }
 }
 

@@ -36,7 +36,7 @@ dependencies {
     implementation("net.devrieze:xmlutil-serialization-jvm:0.81.1")
     runtimeOnly("com.fasterxml.woodstox:woodstox-core:6.2.4") // 6+
 
-    implementation("io.rsug:karlutka:0.0.1-build6")
+    implementation("io.rsug:karlutka:0.0.1-build7")
 
     // клиентское логирование
     implementation("ch.qos.logback:logback-classic:$logback_version")
