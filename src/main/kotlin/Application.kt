@@ -1,11 +1,8 @@
-import com.typesafe.config.ConfigFactory
-import com.typesafe.config.ConfigResolveOptions
 import groovy.util.GroovyScriptEngine
 import groovy.util.ScriptException
 import io.ktor.util.*
 import io.rsug.abyrvalg.Config
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.hocon.Hocon
 import java.nio.file.Files
 import java.nio.file.Paths
 import kotlin.system.exitProcess
@@ -20,8 +17,7 @@ fun main(args: Array<String>) {
     val cfgpath = Paths.get(args[0])
     val config = if (Files.isRegularFile(cfgpath)) {
         val text = Files.newBufferedReader(cfgpath).readText()
-        val resolved = ConfigFactory.parseString(text).resolve(ConfigResolveOptions.defaults())
-        Hocon.decodeFromConfig(Config.serializer(), resolved)
+        Config.parseHocon(text)
     } else {
         System.err.println("ЕГГОГ: Не могу найти конфиг: $cfgpath")
         throw NoSuchFileException(cfgpath.toFile())

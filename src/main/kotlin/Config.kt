@@ -1,5 +1,7 @@
 package io.rsug.abyrvalg
 
+import com.typesafe.config.ConfigFactory
+import com.typesafe.config.ConfigResolveOptions
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.features.cookies.*
@@ -12,10 +14,8 @@ import k3.ServiceEndpoint
 import k3.ServiceEndpoints
 import k5.*
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
+import kotlinx.serialization.*
+import kotlinx.serialization.hocon.Hocon
 import java.util.*
 
 enum class AuthEnum { Basic }
@@ -46,6 +46,7 @@ data class Config(
             }
         }
     }
+
     fun init() {
         runBlocking {
             tenants.forEach {
@@ -143,6 +144,15 @@ data class Config(
         val login: String? = null,
         val password: String? = null
     )
+
+    companion object {
+        @ExperimentalSerializationApi
+        fun parseHocon(text: String): Config {
+            val resolved = ConfigFactory.parseString(text).resolve(ConfigResolveOptions.defaults())
+            return Hocon.decodeFromConfig(serializer(), resolved)
+        }
+    }
+
 }
 
 
