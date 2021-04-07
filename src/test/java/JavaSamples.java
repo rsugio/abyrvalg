@@ -1,5 +1,9 @@
 import io.rsug.abyrvalg.CheckCapabilitiesCPI;
 import io.rsug.abyrvalg.Config;
+import io.rsug.abyrvalg.ServiceEndpointsCPI;
+import io.rsug.abyrvalg.WorkspaceCPI;
+import k3.EntryPoint;
+import k3.ServiceEndpoint;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class JavaSamples {
     Path tmpDir = Paths.get("tmp");
@@ -31,5 +36,28 @@ public class JavaSamples {
         }
     }
 
+    @Test
+    public void serviceEndpointsCPI() {
+        for (Config.Tenant ten : config.getTenants().values()) {
+            ServiceEndpointsCPI endpoints = new ServiceEndpointsCPI(config, ten);
+            List<ServiceEndpoint> lst = endpoints.extract();
+            System.out.println("\n" + ten.getNick());
+            for (ServiceEndpoint se : lst) {
+                System.out.println(se.getId());
+                for (EntryPoint ep : se.getEntryPoints().getResults()) {
+                    assert !ep.getUrl().isEmpty();
+                }
+            }
+        }
+    }
+
+    @Test
+    public void check() {
+        for (Config.Tenant ten : config.getTenants().values()) {
+            WorkspaceCPI wksp = new WorkspaceCPI(config, ten);
+            wksp.retrieve();
+            
+        }
+    }
 
 }
