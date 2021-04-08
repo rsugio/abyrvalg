@@ -2,6 +2,7 @@ import io.rsug.abyrvalg.Config
 import io.rsug.abyrvalg.Config.Companion.parseHocon
 import io.rsug.abyrvalg.WorkspaceCPI
 import k6.IFlowBpmnDefinitions
+import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.junit.Before
 import org.junit.Test
@@ -10,6 +11,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.zip.ZipInputStream
+import kotlin.io.path.writer
 
 class Tests {
     val tmpDir = Paths.get("tmp")
@@ -97,4 +99,33 @@ class Tests {
         }
         println("Total IFLW processed: $cnt")
     }
+
+    @Test
+    fun massParseICo() {
+        var cnt = 0
+        val download = false
+        config.pi.values
+            .filter { it.sid == "QPH" }
+            .forEach { pi ->
+                val pidir = tmpDir.resolve(pi.sid)
+                val icos = IntegratedConfigurationsPI(config, pi, true)
+                if (download) {
+                    runBlocking {
+                        icos.getListSuspend().chunked(200).forEach { ico200 ->
+                            val txt = icos.readICosSuspendString(ico200)
+                            val wr = Files.newBufferedWriter(pidir.resolve("ICO750_${cnt++}.xml"))
+                            wr.write(txt)
+                            wr.close()
+                        }
+                    }
+                } else {
+                    Files.newDirectoryStream(pidir, "ICO750_*.xml").forEach { pack ->
+                        val xmlSoap = Files.newBufferedReader(pack).readText()
+                        icos.parseIcoSoap(xmlSoap)
+                        println("$pack done")
+                    }
+                }
+            }
+    }
+
 }
