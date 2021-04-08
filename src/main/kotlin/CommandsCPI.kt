@@ -75,6 +75,9 @@ class ServiceEndpointsCPI(val config: Config, val tenant: Config.Tenant) {
  */
 class WorkspaceCPI(val config: Config, val tenant: Config.Tenant) {
     val packages: MutableList<IntegrationPackage> = mutableListOf()
+    val designArtifacts: MutableList<IntegrationDesigntimeArtifact> = mutableListOf()
+    val designVMG: MutableList<ValueMappingDesigntimeArtifact> = mutableListOf()
+    val runtimeArtifacts: MutableList<IntegrationRuntimeArtifact> = mutableListOf()
 
     fun retrieve() {
         runBlocking {
@@ -83,22 +86,51 @@ class WorkspaceCPI(val config: Config, val tenant: Config.Tenant) {
     }
 
     suspend fun extract() {
-        // 1. Получить список всех пакетов
+        // Получить список всех пакетов
         tenant.loginIfNeeded(config.client)
+        packages.clear()
+        designArtifacts.clear()
+        designVMG.clear()
+        runtimeArtifacts.clear()
+
         val resp = tenant.getJson(config.client, IntegrationPackages.getUrl(tenant.tmn))
         val d = IntegrationPackages.parse(resp.readText())
         require(d.d.__next == "", { "Too many packages! Listing is not implemented yet" })
         d.d.results.forEach { pack ->
+            // по каждому пакету накачать потоки и VMG
             packages.add(pack)
             val respida = tenant.getJson(config.client, pack.IntegrationDesigntimeArtifacts.getUri())
             val respvm = tenant.getJson(config.client, pack.ValueMappingDesigntimeArtifacts.getUri())
 
-            IntegrationDesigntimeArtifacts.parse(respida.readText()).d.results.forEach { it ->
-                pack.ida.add(it)
+            IntegrationDesigntimeArtifacts.parse(respida.readText(), pack).d.results.forEach { dt ->
+                pack.ida.add(dt)
+                designArtifacts.add(dt)
             }
-            ValueMappingDesigntimeArtifacts.parse(respvm.readText()).d.results.forEach { it ->
-                pack.vmda.add(it)
+            ValueMappingDesigntimeArtifacts.parse(respvm.readText(), pack).d.results.forEach { vm ->
+                pack.vmda.add(vm)
+                designVMG.add(vm)
             }
+        }
+        // Получить список рантайма
+        val ira = tenant.getJson(config.client, IntegrationRuntimeArtifacts.getUrl(tenant.tmn))
+        val e = IntegrationRuntimeArtifacts.parse(ira.readText())
+        require(e.d.__next == "", { "Too many packages! Listing is not implemented yet" })
+        e.d.results.forEach { rt ->
+            runtimeArtifacts.add(rt)
+            when (rt.Type) {
+                IntegrationArtifactTypeEnum.INTEGRATION_FLOW -> {
+                    rt.designtimeArtifact = designArtifacts.find { it.Id == rt.Id }
+                }
+                IntegrationArtifactTypeEnum.VALUE_MAPPING -> {
+                    rt.designtimeVMG = designVMG.find { it.Id == rt.Id }
+                }
+                else -> TODO("ERROR")
+            }
+            // для каждого в рантайме ищем пакет, дизайн-тайм и инфу об ошибках
+            if (rt.Status != CpiDeployedStatus.STARTED) {
+                TODO("Добавить скачивание ошибки")
+            }
+
         }
     }
 

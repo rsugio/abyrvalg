@@ -3,7 +3,6 @@ import io.rsug.abyrvalg.Config.Companion.parseHocon
 import io.rsug.abyrvalg.WorkspaceCPI
 import k6.IFlowBpmnDefinitions
 import kotlinx.serialization.ExperimentalSerializationApi
-import nl.adaptivity.xmlutil.serialization.UnknownXmlFieldException
 import org.junit.Before
 import org.junit.Test
 import java.nio.charset.StandardCharsets
@@ -33,13 +32,26 @@ class Tests {
     }
 
     @Test
-    fun downloadWorkspaceCPI() {
+    fun analyzeWorkspace() {
         config.tenants.values
-            .filter { it.nick == "rutest" }
+            .filter { it.nick == "eutest" }
             .forEach { tenant ->
-                val tdir = mkdir(tmpDir, tenant.nick)
                 val wk = WorkspaceCPI(config, tenant)
                 wk.retrieve()
+                wk.runtimeArtifacts.forEach { rt ->
+                    println("${rt.Id} ${rt.Version} -> ${rt.designtimeArtifact ?: rt.designtimeVMG}")
+                }
+            }
+    }
+
+    @Test
+    fun downloadWorkspaceCPI() {
+        config.tenants.values
+//            .filter { it.nick == "eutest" }   // <-- если хотим не всё протестить
+            .forEach { tenant ->
+                val wk = WorkspaceCPI(config, tenant)
+                wk.retrieve()
+                val tdir = mkdir(tmpDir, tenant.nick)
                 wk.packages.forEach { pack ->
                     val pdir = mkdir(tdir, pack.Id)
                     pack.ida.forEach { ida ->
