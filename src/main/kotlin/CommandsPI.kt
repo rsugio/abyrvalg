@@ -1,12 +1,15 @@
 //@file:Suppress("unused")
 
 import io.ktor.client.statement.*
+import io.ktor.http.*
 import io.rsug.abyrvalg.Config
 import io.rsug.abyrvalg.xmlSoap
+import k1.NotSoComplexQuery
 import k5.*
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
+import java.util.*
 
 class CommunicationChannelsPI(val config: Config, val pi: Config.PI) {
     fun getList() = runBlocking { getListSuspend() }
@@ -145,5 +148,19 @@ class IntegratedConfigurationsPI(val config: Config, val pi: Config.PI, val use7
 //        }
 //        return wu
 //    }
+    }
+}
+
+class SimpleQueryPI(val config: Config, val pi: Config.PI) {
+//    fun getList() = runBlocking { getListSuspend() }
+
+    suspend fun getList(entity: String): List<Map<String, String>> {
+        val req = NotSoComplexQuery.repQuery(entity)
+        val ct = ContentType.parse(NotSoComplexQuery.getContentType())
+        val url = NotSoComplexQuery.getUrlRep(pi.host)
+
+        val resp = pi.post(config.client, url, req, ct)
+        val n = NotSoComplexQuery(Scanner(resp.readText()))
+        return n.lines
     }
 }

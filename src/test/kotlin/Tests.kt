@@ -14,10 +14,10 @@ import java.util.zip.ZipInputStream
 import kotlin.io.path.writer
 
 class Tests {
-    val tmpDir = Paths.get("tmp")
+    private val tmpDir = Paths.get("tmp")
     private lateinit var config: Config
 
-    fun mkdir(where: Path, what: String): Path {
+    private fun mkdir(where: Path, what: String): Path {
         val x = where.resolve(what)
         if (!Files.isDirectory(x))
             Files.createDirectory(x)
@@ -31,6 +31,11 @@ class Tests {
         config = parseHocon(text)
         config.createClient()
         config.init()
+    }
+
+    @Test
+    fun verifyConfig() {
+        println(config.elasticsearch.url)
     }
 
     @Test
@@ -98,6 +103,22 @@ class Tests {
             }
         }
         println("Total IFLW processed: $cnt")
+    }
+
+    @Test
+    fun simpleQuery1() {
+        config.pi.values
+            .filter { it.sid == "QPH" }
+            .forEach {
+                val sq = SimpleQueryPI(config, it)
+                runBlocking {
+                    val n = sq.getList("XI_TRAFO")
+                    n.filter { it["Description"]!!.isNotEmpty() }
+                        .forEach {
+                            println("""${it["Name"]} = ${it["Description"]}""")
+                        }
+                }
+            }
     }
 
     @Test

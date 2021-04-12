@@ -10,12 +10,13 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.http.content.*
-import k3.ServiceEndpoint
-import k3.ServiceEndpoints
-import k5.*
+import k5.xml
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.*
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import kotlinx.serialization.hocon.Hocon
+import java.net.URL
 import java.util.*
 
 enum class AuthEnum { Basic }
@@ -28,9 +29,13 @@ data class Config(
     val httpLogLevel: LogLevel = LogLevel.INFO,
     val pi: Map<String, PI> = mutableMapOf(),
     val tenants: Map<String, Tenant> = mutableMapOf(),
+    val elasticsearch: ElasticSearch = ElasticSearch(),
 ) {
     @Transient
     lateinit var client: HttpClient
+
+    @Transient
+    lateinit var elastic: Any
 
     fun createClient() {
         client = HttpClient(CIO) {
@@ -44,6 +49,7 @@ data class Config(
 //                logger = httpLogger
                 level = httpLogLevel
             }
+//            this.install(ElasticFeature)
         }
     }
 
@@ -58,13 +64,16 @@ data class Config(
                 println("INFO: ${ten.nick} autologged=${ten.logged}") //TODO - logger
             }
         }
+        if (elasticsearch.autologin) {
+//            elastic = elasticsearch.login()
+        }
     }
 
     @Serializable
     data class PI(
         val sid: String,
         val host: String,
-        val login: Login
+        val login: Login,
     ) {
         var _auth: String = ""
 
@@ -83,13 +92,22 @@ data class Config(
             requireXml(resp)
             return resp
         }
+
+        suspend fun post(clnt: HttpClient, url: String, bodyS: String, contentType: ContentType): HttpResponse {
+            lateinit var resp: HttpResponse
+            resp = clnt.post(url) {
+                header("Authorization", _auth)
+                body = TextContent(bodyS, contentType)
+            }
+            return resp
+        }
     }
 
     @Serializable
     data class Tenant(
         val tmn: String,
         val login: Login,
-        val autologin: Boolean = false
+        val autologin: Boolean = false,
     ) {
         var nick: String = ""
         var logged: Boolean = false
@@ -120,7 +138,7 @@ data class Config(
 
         fun defaultHeaders(
             b: HttpRequestBuilder,
-            accept: ContentType = ContentType.Application.Json
+            accept: ContentType = ContentType.Application.Json,
         ) {
             b.header("Authorization", _auth)
             b.header("X-CSRF-Token", xcsrftoken)
@@ -142,8 +160,24 @@ data class Config(
     class Login(
         val auth: AuthEnum = AuthEnum.Basic,
         val login: String? = null,
-        val password: String? = null
+        val password: String? = null,
     )
+
+    @Serializable
+    class ElasticSearch(
+        val url: String = "http://localhost:9200",
+        val autologin: Boolean = false,
+        val repository: String = "abyrvalg",
+        val user: String = "",
+        val password: String = "",
+        val useSniffer: Boolean = false,
+    ) {
+        fun login(): Any? {
+            val u = URL(url)
+
+            return null
+        }
+    }
 
     companion object {
         @ExperimentalSerializationApi

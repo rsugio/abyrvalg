@@ -17,7 +17,7 @@ version = "0.0.1-build6"
 
 application {
     mainClass.set("ApplicationKt")
-    mainClassName = "ApplicationKt"
+//    mainClassName = "ApplicationKt"
 }
 
 repositories {
@@ -25,6 +25,7 @@ repositories {
     jcenter()
     mavenCentral()
     maven { url = uri("https://kotlin.bintray.com/ktor") }
+    maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
@@ -34,9 +35,15 @@ dependencies {
 
     implementation("net.devrieze:xmlutil-jvm:0.81.1")
     implementation("net.devrieze:xmlutil-serialization-jvm:0.81.1")
-    runtimeOnly("com.fasterxml.woodstox:woodstox-core:6.2.4") // 6+
+    runtimeOnly("com.fasterxml.woodstox:woodstox-core:+") // 6.2.4
 
-    implementation("io.rsug:karlutka:0.0.1-build7")
+    // разбор форматов АПИ
+    implementation("io.rsug:karlutka:+") //0.0.1-build7
+
+    // поиск
+    // не понравилось - много лишнего из implementation("com.github.jillesvangurp:es-kotlin-client:1.0.9")
+//    implementation("net.paslavsky:ktor-elastic:+") //1.3.2-1
+
 
     // клиентское логирование
     implementation("ch.qos.logback:logback-classic:$logback_version")
