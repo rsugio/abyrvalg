@@ -105,6 +105,10 @@ class Tests {
         println("Total IFLW processed: $cnt")
     }
 
+    /**
+     * В примере ниже русских буковок нет по вине HMI, который выдаёт вопросы в ISO8859-1
+     * Не стреляйте в пианиста
+     */
     @Test
     fun simpleQuery1() {
         config.pi.values
