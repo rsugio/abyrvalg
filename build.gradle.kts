@@ -5,8 +5,8 @@ val logback_version: String by project
 plugins {
     idea
     application
-    kotlin("jvm") version "1.5.0-M2"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.5.0-M2"
+    kotlin("jvm") version "1.5.0-RC"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.5.0-RC"
 //    id("com.github.johnrengelman.shadow") version "6.1.0"
     id("org.jetbrains.dokka") version "1.4.30"
     id("maven-publish")
@@ -29,12 +29,12 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.0-M2")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.0-RC")
     runtimeOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-hocon:1.1.0")
 
-    implementation("net.devrieze:xmlutil-jvm:0.81.1")
-    implementation("net.devrieze:xmlutil-serialization-jvm:0.81.1")
+    implementation("net.devrieze:xmlutil-jvm:+")//0.81.1
+    implementation("net.devrieze:xmlutil-serialization-jvm:+")//0.81.1
     runtimeOnly("com.fasterxml.woodstox:woodstox-core:+") // 6.2.4
 
     // разбор форматов АПИ
