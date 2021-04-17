@@ -43,7 +43,6 @@ dependencies {
     // не понравилось - много лишнего из implementation("com.github.jillesvangurp:es-kotlin-client:1.0.9")
 //    implementation("net.paslavsky:ktor-elastic:+") //1.3.2-1
 
-
     // клиентское логирование
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.ktor:ktor-client-logging:$ktor_version")
@@ -60,7 +59,6 @@ dependencies {
 //    implementation("org.apache.groovy:groovy-json:4.0.0-alpha-2")
 
     testImplementation(kotlin("test-junit"))
-
 }
 
 //kotlin.sourceSets["main"].kotlin.srcDirs("src")
