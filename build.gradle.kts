@@ -10,10 +10,16 @@ plugins {
 //    id("com.github.johnrengelman.shadow") version "6.1.0"
     id("org.jetbrains.dokka") version "1.4.30"
     id("maven-publish")
+//    id ("com.palantir.git-version") version "0.12.3"
+    id("fr.brouillard.oss.gradle.jgitver") version "0.6.1"
 }
 
 group = "io.rsug"
-version = "0.0.1-build6"
+//version = "0.0.X" //gitVersion()
+
+jgitver {
+    // Your config goes here
+}
 
 application {
     mainClass.set("ApplicationKt")
