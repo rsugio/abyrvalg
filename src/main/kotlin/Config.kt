@@ -10,7 +10,6 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.http.content.*
-import k5.xml
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
@@ -22,8 +21,6 @@ import java.util.*
 enum class AuthEnum { Basic }
 
 // в xmlSoap много полиморфизма внутри SOAP-Envelope
-val xmlSoap = xml()
-
 @Serializable
 data class Config(
     val httpLogLevel: LogLevel = LogLevel.INFO,

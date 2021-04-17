@@ -3,36 +3,27 @@
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.rsug.abyrvalg.Config
-import io.rsug.abyrvalg.xmlSoap
 import k1.NotSoComplexQuery
 import k5.*
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
 import java.util.*
 
 class CommunicationChannelsPI(val config: Config, val pi: Config.PI) {
     fun getList() = runBlocking { getListSuspend() }
 
     suspend fun getListSuspend(): List<CommunicationChannelID> {
-        val req = Envelope(CommunicationChannelQueryRequest())
-        val xml = xmlSoap.encodeToString(req)
+        val xml = CommunicationChannelQueryRequest().composeSOAP()
         val resp = pi.postSOAP(config.client, CommunicationChannelQueryRequest.getUrl(pi.host), xml)
-        val ccqr: Envelope<CommunicationChannelQueryResponse> = xmlSoap.decodeFromString(resp.readText())
-        return ccqr.data.channels
+        val ccqr = CommunicationChannelQueryResponse.parse(resp.readText())
+        return ccqr.channels
     }
 
     fun readChannels(lst: List<CommunicationChannelID>) = runBlocking { readChannelsSuspend(lst) }
 
     suspend fun readChannelsSuspend(lst: List<CommunicationChannelID>): List<CommunicationChannel> {
-        val req2 = Envelope(
-            CommunicationChannelReadRequest("User", lst)
-        )
-        val xml2 = xmlSoap.encodeToString(req2)
-        val resp2 = pi.postSOAP(config.client, CommunicationChannelReadRequest.getUrl(pi.host), xml2)
-        val text2 = resp2.readText()
-        val ccrr: Envelope<CommunicationChannelReadResponse> = xmlSoap.decodeFromString(text2)
-        return ccrr.data.channels
+        val xml = CommunicationChannelReadRequest("User", lst).composeSOAP()
+        val resp = pi.postSOAP(config.client, CommunicationChannelReadRequest.getUrl(pi.host), xml).readText()
+        return CommunicationChannelReadResponse.parse(resp).channels
     }
 }
 
@@ -62,9 +53,7 @@ class IntegratedConfigurationsPI(val config: Config, val pi: Config.PI, val use7
     fun getList() = runBlocking { getListSuspend() }
 
     suspend fun getListSuspend(): List<IntegratedConfigurationID> {
-        val req = Envelope(IntegratedConfigurationQueryRequest())
-        val xml = xmlSoap.encodeToString(req)
-        lateinit var list: MutableList<IntegratedConfigurationID>
+        val xml = IntegratedConfigurationQueryRequest().composeSOAP()
 
         val url = if (use750)
             IntegratedConfigurationQueryRequest.getUrl750(pi.host)
@@ -72,8 +61,8 @@ class IntegratedConfigurationsPI(val config: Config, val pi: Config.PI, val use7
             IntegratedConfigurationQueryRequest.getUrl(pi.host)
 
         val resp = pi.postSOAP(config.client, url, xml)
-        val xs: Envelope<IntegratedConfigurationQueryResponse> = xmlSoap.decodeFromString(resp.readText())
-        return xs.data.IntegratedConfigurationID
+        val xs = IntegratedConfigurationQueryResponse.parse(resp.readText())
+        return xs.IntegratedConfigurationID
     }
 
     fun readICos(lst: List<IntegratedConfigurationID>) = runBlocking {
@@ -81,25 +70,20 @@ class IntegratedConfigurationsPI(val config: Config, val pi: Config.PI, val use7
     }
 
     suspend fun readICosSuspendString(lst: List<IntegratedConfigurationID>): String {
-        val req2 = Envelope(
-            IntegratedConfigurationReadRequest("User", lst)
-        )
-        val xml2 = xmlSoap.encodeToString(req2)
+        val xml = IntegratedConfigurationReadRequest("User", lst).composeSOAP()
         val url = if (use750)
             IntegratedConfigurationReadRequest.getUrl750(pi.host)
         else
             IntegratedConfigurationReadRequest.getUrl(pi.host)
 
-        return pi.postSOAP(config.client, url, xml2).readText()
+        return pi.postSOAP(config.client, url, xml).readText()
     }
 
     fun parseIcoSoap(payloadXmlSoap: String) =
         if (use750) {
-            val xs: Envelope<IntegratedConfiguration750ReadResponse> = xmlSoap.decodeFromString(payloadXmlSoap)
-            xs.data.IntegratedConfiguration
+            IntegratedConfiguration750ReadResponse.parse(payloadXmlSoap).IntegratedConfiguration
         } else {
-            val xs: Envelope<IntegratedConfigurationReadResponse> = xmlSoap.decodeFromString(payloadXmlSoap)
-            xs.data.IntegratedConfiguration
+            IntegratedConfigurationReadResponse.parse(payloadXmlSoap).IntegratedConfiguration
         }
 
     fun whereUsedChannels(

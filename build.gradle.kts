@@ -21,7 +21,7 @@ application {
 
 repositories {
     mavenLocal()
-//    jcenter()
+    jcenter()
     mavenCentral()
     maven { url = uri("https://kotlin.bintray.com/ktor") }
     maven { url = uri("https://jitpack.io") }
