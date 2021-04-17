@@ -5,8 +5,8 @@ val logback_version: String by project
 plugins {
     idea
     application
-    kotlin("jvm") version "1.5.0-RC"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.5.0-RC"
+    kotlin("jvm") version "1.5+"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.5+"
 //    id("com.github.johnrengelman.shadow") version "6.1.0"
     id("org.jetbrains.dokka") version "1.4.30"
     id("maven-publish")
@@ -17,19 +17,18 @@ version = "0.0.1-build6"
 
 application {
     mainClass.set("ApplicationKt")
-//    mainClassName = "ApplicationKt"
 }
 
 repositories {
     mavenLocal()
-    jcenter()
+//    jcenter()
     mavenCentral()
     maven { url = uri("https://kotlin.bintray.com/ktor") }
     maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.0-RC")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5+")
     runtimeOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-hocon:1.1.0")
 
