@@ -10,7 +10,6 @@ plugins {
 //    id("com.github.johnrengelman.shadow") version "6.1.0"
     id("org.jetbrains.dokka") version "1.4.30"
     id("maven-publish")
-//    id ("com.palantir.git-version") version "0.12.3"
     id("fr.brouillard.oss.gradle.jgitver") version "0.6.1"
 }
 
@@ -31,6 +30,18 @@ repositories {
     mavenCentral()
     maven { url = uri("https://kotlin.bintray.com/ktor") }
     maven { url = uri("https://jitpack.io") }
+    maven{
+        requireNotNull(property("gpr.user"))
+        requireNotNull(property("gpr.key"))
+        url = uri("https://maven.pkg.github.com/pdvrieze/xmlutil")
+        credentials {
+            username = property("gpr.user") as String
+            password = property("gpr.key") as String
+        }
+        content {
+            includeGroup("io.github.pdvrieze.xmlutil")
+        }
+    }
 }
 
 dependencies {
@@ -38,8 +49,7 @@ dependencies {
     runtimeOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-hocon:1.1.0")
 
-    implementation("net.devrieze:xmlutil-jvm:+")//0.81.1
-    implementation("net.devrieze:xmlutil-serialization-jvm:+")//0.81.1
+    implementation("io.github.pdvrieze.xmlutil:serialization-jvm:+")
     runtimeOnly("com.fasterxml.woodstox:woodstox-core:+") // 6.2.4
 
     // разбор форматов АПИ
