@@ -1,32 +1,27 @@
-val ktor_version: String by project
-val kotlin_version = "1.5.0-M2"
-val logback_version: String by project
-
 plugins {
     idea
     application
-    kotlin("jvm") version "1.5+"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.5+"
-//    id("com.github.johnrengelman.shadow") version "6.1.0"
+    kotlin("jvm") version "1.5.0-RC"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.5.0-RC"
     id("org.jetbrains.dokka") version "1.4.30"
     id("maven-publish")
-    id("fr.brouillard.oss.gradle.jgitver") version "0.6.1"
+//    id("fr.brouillard.oss.gradle.jgitver") version "0.6.1"
 }
 
 group = "io.rsug"
-//version = "0.0.X" //gitVersion()
+version = "0.0.1-build124" //gitVersion()
 
-jgitver {
-    // Your config goes here
-}
+//jgitver {
+//    // Your config goes here
+//}
 
 application {
     mainClass.set("ApplicationKt")
 }
 
 repositories {
-    mavenLocal()
     jcenter()
+    mavenLocal()
     mavenCentral()
     maven { url = uri("https://kotlin.bintray.com/ktor") }
     maven { url = uri("https://jitpack.io") }
@@ -45,43 +40,34 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5+")
+    implementation(kotlin("stdlib"))
     runtimeOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-hocon:1.1.0")
 
-    implementation("io.github.pdvrieze.xmlutil:serialization-jvm:+")
-    runtimeOnly("com.fasterxml.woodstox:woodstox-core:+") // 6.2.4
+    implementation("io.github.pdvrieze.xmlutil:serialization-jvm:0.81.2")
+    runtimeOnly("com.fasterxml.woodstox:woodstox-core:6.2.5") // 6.2.4
 
     // разбор форматов АПИ
     implementation("io.rsug:karlutka:+") //0.0.1-build7
 
-    // поиск
-    // не понравилось - много лишнего из implementation("com.github.jillesvangurp:es-kotlin-client:1.0.9")
-//    implementation("net.paslavsky:ktor-elastic:+") //1.3.2-1
-
     // клиентское логирование
-    implementation("ch.qos.logback:logback-classic:$logback_version")
-    implementation("io.ktor:ktor-client-logging:$ktor_version")
-
-    implementation("io.ktor:ktor-client-core:$ktor_version")
-    implementation("io.ktor:ktor-client-core-jvm:$ktor_version")
-    implementation("io.ktor:ktor-client-cio:$ktor_version")
-//    implementation("io.ktor:ktor-client-serialization:$ktor_version")
-//    implementation("io.ktor:ktor-client-gson:$ktor_version")
+    implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation("io.ktor:ktor-client-logging:1.5.3")
+    implementation("io.ktor:ktor-client-core:1.5.3")
+    implementation("io.ktor:ktor-client-core-jvm:1.5.3")
+    implementation("io.ktor:ktor-client-cio:1.5.3")
 
     // нынешний груви модулен
-    implementation("org.apache.groovy:groovy:4.0.0-alpha-2")
-//    implementation("org.apache.groovy:groovy-xml:4.0.0-alpha-2")
-//    implementation("org.apache.groovy:groovy-json:4.0.0-alpha-2")
-
+    implementation("org.apache.groovy:groovy:4.0.0-alpha-3")
     testImplementation(kotlin("test-junit"))
 }
 
-//kotlin.sourceSets["main"].kotlin.srcDirs("src")
-//kotlin.sourceSets["test"].kotlin.srcDirs("test")
-//
-//sourceSets["main"].resources.srcDirs("resources")
-//sourceSets["test"].resources.srcDirs("testresources")
+kotlin.sourceSets["main"].kotlin.srcDirs("src")
+sourceSets["main"].resources.srcDirs("resources")
+
+kotlin.sourceSets["test"].kotlin.srcDirs("test")
+
+sourceSets["test"].resources.srcDirs("testresources")
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
     kotlinOptions.jvmTarget = "11"

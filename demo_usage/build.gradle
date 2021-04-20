@@ -1,0 +1,39 @@
+plugins {
+    id 'groovy'
+    id 'java'
+    id 'application'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+//println("properties = $project.properties")
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+    maven{
+        url = uri("https://maven.pkg.github.com/pdvrieze/xmlutil")
+//        credentials {
+//            username = property("gpr.user")
+//            password = property("gpr.key")
+//        }
+    }
+}
+
+application {
+    mainClassName = "ALaunch"
+}
+
+dependencies {
+    implementation "io.rsug:abyrvalg:+"
+    implementation "io.rsug:karlutka:+"
+    implementation "org.apache.groovy:groovy:4.0.0-alpha-3"
+    implementation "org.apache.groovy:groovy-xml:4.0.0-alpha-3"
+    runtimeOnly "io.github.pdvrieze.xmlutil:serialization-jvm:0.81.2"
+}
+
+test {
+    useJUnitPlatform()
+}

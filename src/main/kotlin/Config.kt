@@ -20,7 +20,6 @@ import java.util.*
 
 enum class AuthEnum { Basic }
 
-// в xmlSoap много полиморфизма внутри SOAP-Envelope
 @Serializable
 data class Config(
     val httpLogLevel: LogLevel = LogLevel.INFO,

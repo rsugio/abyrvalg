@@ -11,7 +11,6 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.zip.ZipInputStream
-import kotlin.io.path.writer
 
 class Tests {
     private val tmpDir = Paths.get("tmp")
@@ -41,12 +40,25 @@ class Tests {
     @Test
     fun analyzeWorkspace() {
         config.tenants.values
-            .filter { it.nick == "eutest" }
+            .filter { it.nick == "ruprod" }
             .forEach { tenant ->
                 val wk = WorkspaceCPI(config, tenant)
                 wk.retrieve()
                 wk.runtimeArtifacts.forEach { rt ->
-                    println("${rt.Id} ${rt.Version} -> ${rt.designtimeArtifact ?: rt.designtimeVMG}")
+                    when {
+                        rt.designtimeArtifact!=null -> {
+                            if (rt.Version!=rt.designtimeArtifact!!.Version) {
+                                println("${rt.Id} ${rt.Version} ----------------> ${rt.designtimeArtifact!!.Version}")
+                            } else {
+                                println("${rt.Id} ${rt.Version} ==")
+                            }
+
+                        }
+                        rt.designtimeVMG!=null -> {
+                            println("${rt.Id} ${rt.Version} -> ${rt.designtimeVMG!!.Id}")
+                        }
+                        else -> println("WARN!!!!!!!!!!! ${rt.Id} ver=${rt.Version} has no design artefact")
+                    }
                 }
             }
     }
@@ -54,7 +66,7 @@ class Tests {
     @Test
     fun downloadWorkspaceCPI() {
         config.tenants.values
-//            .filter { it.nick == "eutest" }   // <-- если хотим не всё протестить
+            .filter { it.nick == "zanzibar" }   // <-- если хотим не всё протестить
             .forEach { tenant ->
                 val wk = WorkspaceCPI(config, tenant)
                 wk.retrieve()
@@ -113,8 +125,8 @@ class Tests {
     fun simpleQuery1() {
         config.pi.values
             .filter { it.sid == "QPH" }
-            .forEach {
-                val sq = SimpleQueryPI(config, it)
+            .forEach { pi ->
+                val sq = SimpleQueryPI(config, pi)
                 runBlocking {
                     val n = sq.getList("XI_TRAFO")
                     n.filter { it["Description"]!!.isNotEmpty() }
@@ -153,4 +165,17 @@ class Tests {
             }
     }
 
+    @Test
+    fun mapping() {
+        config.pi.values
+            .filter { it.sid == "QPH" }
+            .forEach { pi ->
+                val hmi = HeroMaterniyInterfeis(config, pi)
+                val req = hmi.mappingTest("0050568f0aac1ed4a6e56926325e2eb3",
+                    "XiPatternMessage1ToMessage2", "http://sap.com/xi/XI/System/Patterns",
+                    "<a/>"
+                )
+                println(req)
+            }
+    }
 }
