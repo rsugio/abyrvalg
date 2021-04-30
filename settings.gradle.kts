@@ -1,14 +1,10 @@
-rootProject.name = "abyrvalg"
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-        maven("https://dl.bintray.com/kotlin/kotlinx")
+        mavenCentral()
+        maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap/")
     }
 }
 
-//include("client")
-//include("server")
-//include("server")
-//include()
-include("server")
+rootProject.name = "abyrvalg"
+include("lib", "demousage", "server")
