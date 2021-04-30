@@ -29,7 +29,7 @@ class OnlineTests {
     fun pi_query() {
         // для каждого пиая
         config.pi.values
-            .filter { it.sid == "DPH" }
+            .filter { it.sid != "DPZ" }
             .forEach { pi ->
                 println("PI SID=${pi.sid}")
                 val hmi = HeroMaterniyInterfeis(config, pi)
@@ -39,7 +39,6 @@ class OnlineTests {
                 val req = HmRequest("dummy", "7.0", "0")
                 val resp = hmi.query(qu, req)
                 println(resp?.toTable())
-
             }
     }
 }

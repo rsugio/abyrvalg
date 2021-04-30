@@ -2,7 +2,11 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.serialization") version "1.5.0"
     `java-library`
+    id("maven-publish")
 }
+
+group = "io.rsug"
+version = "0.0.1-build9"
 
 repositories {
     mavenLocal()
@@ -35,4 +39,30 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+publishing {
+    requireNotNull(property("gpr.user"))
+    requireNotNull(property("gpr.key"))
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/rsugio/abyrvalg")
+            credentials {
+                username = property("gpr.user") as String
+                password = property("gpr.key") as String
+            }
+        }
+    }
+    publications {
+        publications {
+            create<MavenPublication>("maven") {
+                groupId = project.group as String
+                artifactId = "abyrvalg"
+                version = project.version as String
+
+                from(components["java"])
+            }
+        }
+    }
 }

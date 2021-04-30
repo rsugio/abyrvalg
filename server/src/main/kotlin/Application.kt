@@ -16,10 +16,18 @@ import io.ktor.features.*
 import io.ktor.server.engine.*
 import io.ktor.websocket.*
 import io.ktor.http.cio.websocket.*
+import io.rsug.abyrvalg.Config
+import io.rsug.abyrvalg.parseHoconFromPath
+import java.nio.file.Paths
 import java.time.*
+import kotlin.io.path.div
+
+val tmp = Paths.get("tmp").toRealPath()
+val cfgPath = tmp.resolve("abyrvalg.conf")
+val config: Config = parseHoconFromPath(cfgPath, tmp)
 
 fun main(args: Array<String>) {
-    println("Abyrvalg web server")
+    println("Abyrvalg web server, tmp=$tmp")
     return io.ktor.server.cio.EngineMain.main(args)
 }
 
