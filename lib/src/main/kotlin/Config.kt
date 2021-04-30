@@ -177,8 +177,14 @@ data class Config(
 
     companion object {
         @ExperimentalSerializationApi
-        fun parseHocon(text: String): Config {
+        fun parseHoconFromString(text: String): Config {
             val resolved = ConfigFactory.parseString(text).resolve(ConfigResolveOptions.defaults())
+            return Hocon.decodeFromConfig(serializer(), resolved)
+        }
+        @OptIn(ExperimentalSerializationApi::class)
+        fun parseHoconFromResource(resn: String): Config {
+            val cfg = ConfigFactory.parseResources(resn)
+            val resolved = cfg.resolve(ConfigResolveOptions.defaults())
             return Hocon.decodeFromConfig(serializer(), resolved)
         }
     }
