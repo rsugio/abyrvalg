@@ -20,9 +20,8 @@ val groovy_version: String by project
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("io.rsug:karlutka:+")
+    implementation("io.rsug:karlutka:0.0.1-build9")
 
-    implementation("org.apache.groovy:groovy:$groovy_version")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-hocon:$kotlinx_serialization_version")
     implementation("io.ktor:ktor-client-core:$ktor_version")
     implementation("io.ktor:ktor-client-core-jvm:$ktor_version")

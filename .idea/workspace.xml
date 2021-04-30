@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc38074b-a886-4792-9209-643bda912a45" name="Default Changelist" comment="тесты">
+    <list default="true" id="bc38074b-a886-4792-9209-643bda912a45" name="Default Changelist" comment="тесты и примеры">
+      <change afterPath="$PROJECT_DIR$/lib/src/test/kotlin/OnlineTests.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demousage/src/main/groovy/DemoGroovy.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/demousage/src/main/groovy/DemoGroovy.groovy" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demousage/src/main/java/DemoJava.java" beforeDir="false" afterPath="$PROJECT_DIR$/demousage/src/main/java/DemoJava.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/main/kotlin/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/main/kotlin/Application.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/main/kotlin/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/main/kotlin/Application.kt.bak" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/main/kotlin/Config.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/main/kotlin/Config.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/main/kotlin/HeroMaterniyInterfeis.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/main/kotlin/HeroMaterniyInterfeis.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/test/kotlin/OfflineTests.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/test/kotlin/OfflineTests.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/Application.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,17 +28,86 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/server">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$/lib">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="abyrvalg" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="abyrvalg" type="f1a62948:ProjectNode" />
+                <item name="lib" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="abyrvalg" type="f1a62948:ProjectNode" />
+                <item name="lib" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="abyrvalg" type="f1a62948:ProjectNode" />
+                <item name="lib" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="abyrvalg" type="f1a62948:ProjectNode" />
+                <item name="server" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="abyrvalg" type="f1a62948:ProjectNode" />
+                <item name="server" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="abyrvalg" type="f1a62948:ProjectNode" />
+                <item name="server" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="distribution" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="abyrvalg" type="f1a62948:ProjectNode" />
+                <item name="server" type="2d1252cf:ModuleNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/lib/src/main/kotlin/HeroMaterniyInterfeis.kt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/src/main/kotlin/Config.kt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/src/main/kotlin/CommandsPI.kt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/src/test/kotlin/OnlineTests.kt" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1rsSVR8ZHLb0kaWx2lRqJt7DasA" />
   <component name="ProjectViewState">
@@ -49,28 +122,13 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
-  <component name="RunManager" selected="Application.DemoJava">
-    <configuration name="DemoGroovy" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DemoGroovy" />
-      <module name="abyrvalg.demousage.main" />
-      <option name="PROGRAM_PARAMETERS" value="abyrvalg.conf" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DemoJava" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DemoJava" />
-      <module name="abyrvalg.demousage.main" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OfflineTests" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.OnlineTests.pi_query">
+    <configuration name="OnlineTests" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;OfflineTests&quot;" />
+        <option name="scriptParameters" value="--tests &quot;OnlineTests&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -86,12 +144,12 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="OfflineTests.a" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="OnlineTests.pi_query" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;OfflineTests.a&quot;" />
+        <option name="scriptParameters" value="--tests &quot;OnlineTests.pi_query&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -106,13 +164,69 @@
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
+    </configuration>
+    <configuration name="abyrvalg:lib [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/lib" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="abyrvalg:server [installDist]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/server" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="installDist" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ApplicationKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <module name="abyrvalg.server.main" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="io.rsug.abyrvalg.server.ApplicationKt" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DemoJava" />
-        <item itemvalue="Application.DemoGroovy" />
-        <item itemvalue="Gradle.OfflineTests" />
-        <item itemvalue="Gradle.OfflineTests.a" />
+        <item itemvalue="Gradle.OnlineTests.pi_query" />
+        <item itemvalue="Gradle.OnlineTests" />
+        <item itemvalue="Gradle.abyrvalg:lib [build]" />
+        <item itemvalue="Gradle.abyrvalg:server [installDist]" />
+        <item itemvalue="Application.ApplicationKt" />
       </list>
     </recent_temporary>
   </component>
@@ -216,7 +330,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619769089238</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="тесты и примеры">
+      <created>1619777564007</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1619777564007</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -241,6 +362,7 @@
     <MESSAGE value="оффлайн тест" />
     <MESSAGE value="разбор конфига из ресурса" />
     <MESSAGE value="тесты" />
-    <option name="LAST_COMMIT_MESSAGE" value="тесты" />
+    <MESSAGE value="тесты и примеры" />
+    <option name="LAST_COMMIT_MESSAGE" value="тесты и примеры" />
   </component>
 </project>

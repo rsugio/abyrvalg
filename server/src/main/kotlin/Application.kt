@@ -19,6 +19,7 @@ import io.ktor.http.cio.websocket.*
 import java.time.*
 
 fun main(args: Array<String>) {
+    println("Abyrvalg web server")
     return io.ktor.server.cio.EngineMain.main(args)
 }
 

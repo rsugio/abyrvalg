@@ -7,6 +7,11 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import kotlin.system.exitProcess
 
+/**
+ * Это раньше был такой способ запуска - в основном абырвалге встроенный груви.
+ * Сейчас оставлено для истории
+ **/
+
 @ExperimentalSerializationApi
 @KtorExperimentalAPI
 fun main(args: Array<String>) {

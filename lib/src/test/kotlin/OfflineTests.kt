@@ -3,9 +3,10 @@ import io.rsug.abyrvalg.Config
 
 class OfflineTests() {
     val config: Config
+
     init {
         val a = { }::class.java.getResourceAsStream("abyrvalg.conf")
-        assert(a!=null)
+        assert(a != null)
         config = Config.parseHoconFromResource("abyrvalg.conf")
         config.createClient()
         config.init()

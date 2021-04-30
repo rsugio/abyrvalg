@@ -15,7 +15,7 @@ public class DemoJava {
             // Чтение конфига из файла
             Path cfgpath = Paths.get(args[0]);
             if (Files.isRegularFile(cfgpath)) {
-                config = ConfigKt.parseHoconFromPath(cfgpath);
+                config = ConfigKt.parseHoconFromPath(cfgpath, Paths.get(""));
             } else {
                 System.err.println("Error: Unable to get config: " + cfgpath.toAbsolutePath());
                 System.exit(-1);

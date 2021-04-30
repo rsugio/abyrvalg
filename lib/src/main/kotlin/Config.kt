@@ -1,7 +1,6 @@
 package io.rsug.abyrvalg
 
-import com.typesafe.config.ConfigFactory
-import com.typesafe.config.ConfigResolveOptions
+import com.typesafe.config.*
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.features.cookies.*
@@ -16,6 +15,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import kotlinx.serialization.hocon.Hocon
 import kotlinx.serialization.serializer
+import java.io.File
 import java.net.URL
 import java.nio.file.Path
 import java.util.*
@@ -80,6 +80,9 @@ data class Config(
             _auth = "Basic " +
                     Base64.getEncoder().encodeToString("${login.login}:${login.password}".encodeToByteArray())
         }
+
+        suspend fun postHMI(clnt: HttpClient, hmires: String, bodySOAPXML: String) =
+            postSOAP(clnt, "$host/$hmires", bodySOAPXML)
 
         suspend fun postSOAP(clnt: HttpClient, url: String, bodySOAPXML: String): HttpResponse {
             lateinit var resp: HttpResponse
@@ -192,12 +195,30 @@ data class Config(
     }
 }
 
+class Includer(val base: Path) : ConfigIncluderFile, ConfigIncluder {
+    override fun includeFile(context: ConfigIncludeContext?, what: File?): ConfigObject {
+        val fil = base.resolve(what.toString()).toFile()
+        val another = ConfigFactory.parseFile(fil).root()
+        return another
+    }
+
+    override fun withFallback(fallback: ConfigIncluder?): ConfigIncluder {
+        return this
+    }
+
+    override fun include(context: ConfigIncludeContext?, what: String?): ConfigObject {
+        TODO()
+    }
+}
+
 @ExperimentalSerializationApi
 fun parseHoconFromString(text: String) = Config.parseHoconFromString(text)
 
 @ExperimentalSerializationApi
-fun parseHoconFromPath(path: Path): Config {
-    val resolved = ConfigFactory.parseFile(path.toFile()).resolve(ConfigResolveOptions.defaults())
+fun parseHoconFromPath(path: Path, cwd: Path): Config {
+    val opts = ConfigParseOptions.defaults().setIncluder(Includer(cwd))
+    val cfg = ConfigFactory.parseFile(path.toFile(), opts)
+    val resolved = cfg.resolve(ConfigResolveOptions.defaults())
     return Hocon.decodeFromConfig(serializer(), resolved)
 }
 
