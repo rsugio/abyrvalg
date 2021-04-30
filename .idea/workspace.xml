@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc38074b-a886-4792-9209-643bda912a45" name="Default Changelist" comment="ненужное">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="bc38074b-a886-4792-9209-643bda912a45" name="Default Changelist" comment="тесты">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demousage/src/main/groovy/DemoGroovy.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/demousage/src/main/groovy/DemoGroovy.groovy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demousage/src/main/java/DemoJava.java" beforeDir="false" afterPath="$PROJECT_DIR$/demousage/src/main/java/DemoJava.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/main/kotlin/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/main/kotlin/Application.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/main/kotlin/Config.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/main/kotlin/Config.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +48,73 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+  </component>
+  <component name="RunManager" selected="Application.DemoJava">
+    <configuration name="DemoGroovy" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DemoGroovy" />
+      <module name="abyrvalg.demousage.main" />
+      <option name="PROGRAM_PARAMETERS" value="abyrvalg.conf" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DemoJava" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DemoJava" />
+      <module name="abyrvalg.demousage.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OfflineTests" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;OfflineTests&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":lib:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="OfflineTests.a" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;OfflineTests.a&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":lib:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.DemoJava" />
+        <item itemvalue="Application.DemoGroovy" />
+        <item itemvalue="Gradle.OfflineTests" />
+        <item itemvalue="Gradle.OfflineTests.a" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -110,7 +181,42 @@
       <option name="project" value="LOCAL" />
       <updated>1619764987807</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="UTF-8">
+      <created>1619765138154</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1619765138154</updated>
+    </task>
+    <task id="LOCAL-00010" summary="UTF-8">
+      <created>1619765280589</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1619765280589</updated>
+    </task>
+    <task id="LOCAL-00011" summary="оффлайн тест">
+      <created>1619769011370</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1619769011370</updated>
+    </task>
+    <task id="LOCAL-00012" summary="разбор конфига из ресурса">
+      <created>1619769061594</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1619769061594</updated>
+    </task>
+    <task id="LOCAL-00013" summary="тесты">
+      <created>1619769089237</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1619769089238</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,6 +229,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="модульность: demousage" />
@@ -130,6 +237,10 @@
     <MESSAGE value="модульность: веб-морда" />
     <MESSAGE value="модульность: главный проект" />
     <MESSAGE value="ненужное" />
-    <option name="LAST_COMMIT_MESSAGE" value="ненужное" />
+    <MESSAGE value="UTF-8" />
+    <MESSAGE value="оффлайн тест" />
+    <MESSAGE value="разбор конфига из ресурса" />
+    <MESSAGE value="тесты" />
+    <option name="LAST_COMMIT_MESSAGE" value="тесты" />
   </component>
 </project>

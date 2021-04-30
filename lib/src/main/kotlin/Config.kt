@@ -15,7 +15,9 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import kotlinx.serialization.hocon.Hocon
+import kotlinx.serialization.serializer
 import java.net.URL
+import java.nio.file.Path
 import java.util.*
 
 enum class AuthEnum { Basic }
@@ -149,7 +151,6 @@ data class Config(
             requireJson(resp)
             return resp
         }
-
     }
 
     @Serializable
@@ -181,6 +182,7 @@ data class Config(
             val resolved = ConfigFactory.parseString(text).resolve(ConfigResolveOptions.defaults())
             return Hocon.decodeFromConfig(serializer(), resolved)
         }
+
         @OptIn(ExperimentalSerializationApi::class)
         fun parseHoconFromResource(resn: String): Config {
             val cfg = ConfigFactory.parseResources(resn)
@@ -188,9 +190,16 @@ data class Config(
             return Hocon.decodeFromConfig(serializer(), resolved)
         }
     }
-
 }
 
+@ExperimentalSerializationApi
+fun parseHoconFromString(text: String) = Config.parseHoconFromString(text)
+
+@ExperimentalSerializationApi
+fun parseHoconFromPath(path: Path): Config {
+    val resolved = ConfigFactory.parseFile(path.toFile()).resolve(ConfigResolveOptions.defaults())
+    return Hocon.decodeFromConfig(serializer(), resolved)
+}
 
 fun requireJson(resp: HttpResponse) {
     require(resp.status.equals(HttpStatusCode.OK))

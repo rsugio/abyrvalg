@@ -17,7 +17,7 @@ fun main(args: Array<String>) {
     val cfgpath = Paths.get(args[0])
     val config = if (Files.isRegularFile(cfgpath)) {
         val text = Files.newBufferedReader(cfgpath).readText()
-        Config.parseHocon(text)
+        Config.parseHoconFromString(text)
     } else {
         System.err.println("ЕГГОГ: Не могу найти конфиг: $cfgpath")
         throw NoSuchFileException(cfgpath.toFile())
