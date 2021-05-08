@@ -7,4 +7,4 @@ pluginManagement {
 }
 
 rootProject.name = "abyrvalg"
-include("lib", "demousage", "server")
+include("lib", "demousage", "server", "client")

@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm")
-    kotlin("plugin.serialization") version "1.5.0"
+    kotlin("plugin.serialization")
     `java-library`
     id("maven-publish")
 }
@@ -24,7 +24,7 @@ val groovy_version: String by project
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("io.rsug:karlutka:0.0.1-build9")
+    implementation("io.rsug:karlutka:+")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-hocon:$kotlinx_serialization_version")
     implementation("io.ktor:ktor-client-core:$ktor_version")

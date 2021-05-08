@@ -1,26 +1,24 @@
 package io.rsug.abyrvalg.server
 
 import io.ktor.application.*
-import io.ktor.response.*
-import io.ktor.request.*
-import io.ktor.routing.*
-import io.ktor.http.*
-import io.ktor.html.*
-import kotlinx.html.*
-import kotlinx.css.*
-import io.ktor.content.*
-import io.ktor.http.content.*
 import io.ktor.auth.*
-import io.ktor.sessions.*
 import io.ktor.features.*
-import io.ktor.server.engine.*
-import io.ktor.websocket.*
+import io.ktor.html.*
+import io.ktor.http.*
 import io.ktor.http.cio.websocket.*
+import io.ktor.http.content.*
+import io.ktor.response.*
+import io.ktor.routing.*
+import io.ktor.server.engine.*
+import io.ktor.sessions.*
+import io.ktor.webjars.*
+import io.ktor.websocket.*
 import io.rsug.abyrvalg.Config
 import io.rsug.abyrvalg.parseHoconFromPath
+import kotlinx.css.*
+import kotlinx.html.*
 import java.nio.file.Paths
-import java.time.*
-import kotlin.io.path.div
+import java.time.Duration
 
 val tmp = Paths.get("tmp").toRealPath()
 val cfgPath = tmp.resolve("abyrvalg.conf")
@@ -34,6 +32,10 @@ fun main(args: Array<String>) {
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
+    install(Webjars) {
+        path = "webjars"
+    }
+
     install(Authentication) {
     }
 
@@ -62,12 +64,12 @@ fun Application.module(testing: Boolean = false) {
 
     install(ShutDownUrl.ApplicationCallFeature) {
         // The URL that will be intercepted (you can also use the application.conf's ktor.deployment.shutdown.url key)
-        shutDownUrl = "/ktor/application/shutdown"
+        shutDownUrl = "/shutdown"
         // A function that will be executed to get the exit code of the process
         exitCodeSupplier = { 0 } // ApplicationCall.() -> Int
     }
 
-    install(io.ktor.websocket.WebSockets) {
+    install(WebSockets) {
         pingPeriod = Duration.ofSeconds(15)
         timeout = Duration.ofSeconds(15)
         maxFrameSize = Long.MAX_VALUE
@@ -76,18 +78,14 @@ fun Application.module(testing: Boolean = false) {
 
     routing {
         get("/") {
-            call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
-        }
-
-        get("/html-dsl") {
             call.respondHtml {
+                head {
+                    title { +"title" }
+                }
                 body {
-                    h1 { +"HTML" }
-                    ul {
-                        for (n in 1..10) {
-                            li { +"$n" }
-                        }
-                    }
+                    h1 { +"Абырвалг за нумером ноль" }
+                    pre { +config.toString() }
+                    h2 { +"Примус. Признание Америки." }
                 }
             }
         }
