@@ -12,6 +12,7 @@ repositories {
 
 val logback_classic_version: String by project
 val ktor_version: String by project
+val jswrapper_version: String by project
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
@@ -19,7 +20,7 @@ dependencies {
     implementation("io.ktor:ktor-auth:$ktor_version")
     implementation("io.ktor:ktor-server-cio:$ktor_version")
     implementation("io.ktor:ktor-html-builder:$ktor_version")
-    implementation("org.jetbrains:kotlin-css-jvm:1.0.0-pre.31-kotlin-1.2.41")
+    implementation("org.jetbrains:kotlin-css-jvm:1.0.0-$jswrapper_version")
     implementation("io.ktor:ktor-websockets:$ktor_version")
     implementation("io.ktor:ktor-webjars:$ktor_version")
     implementation(project(":lib"))

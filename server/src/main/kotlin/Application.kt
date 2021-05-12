@@ -20,18 +20,20 @@ import kotlinx.html.*
 import java.nio.file.Paths
 import java.time.Duration
 
-val tmp = Paths.get("tmp").toRealPath()
-val cfgPath = tmp.resolve("abyrvalg.conf")
-val config: Config = parseHoconFromPath(cfgPath, tmp)
+//val tmp = Paths.get("tmp")
+//val cfgPath = tmp.resolve("abyrvalg.conf")
+//val config: Config = parseHoconFromPath(cfgPath, tmp)
 
 fun main(args: Array<String>) {
-    println("Abyrvalg web server, tmp=$tmp")
+//    println("Abyrvalg web server, tmp=$tmp")
     return io.ktor.server.cio.EngineMain.main(args)
 }
 
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
+    install(ConditionalHeaders)
+
     install(Webjars) {
         path = "webjars"
     }
@@ -80,12 +82,12 @@ fun Application.module(testing: Boolean = false) {
         get("/") {
             call.respondHtml {
                 head {
-                    title { +"title" }
+                    title { +"титул" }
+//                    link(rel="stylesheet", href="??")
                 }
                 body {
-                    h1 { +"Абырвалг за нумером ноль" }
-                    pre { +config.toString() }
-                    h2 { +"Примус. Признание Америки." }
+                    script(src = "client.js") {}
+                    div { attributes["id"] = "root" }
                 }
             }
         }
@@ -104,7 +106,6 @@ fun Application.module(testing: Boolean = false) {
             }
         }
 
-        // Static feature. Try to access `/static/ktor_logo.svg`
         static("/static") {
             resources("static")
         }

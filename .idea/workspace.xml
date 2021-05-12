@@ -4,19 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bc38074b-a886-4792-9209-643bda912a45" name="Default Changelist" comment="публикация в GPR">
-      <change afterPath="$PROJECT_DIR$/client/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/main/kotlin/WelcomeStyles.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/main/kotlin/client.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/main/kotlin/welcome.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/main/resources/index.html" afterDir="false" />
+    <list default="true" id="bc38074b-a886-4792-9209-643bda912a45" name="Default Changelist" comment="добавляем реакт-клиента и webjars">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/client/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/resources/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/resources/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/server/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/kotlin/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/kotlin/Application.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +45,17 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="abyrvalg" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="abyrvalg" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="abyrvalg" type="f1a62948:ProjectNode" />
                 <item name="server" type="2d1252cf:ModuleNode" />
               </path>
               <path>
@@ -57,6 +63,20 @@
                 <item name="abyrvalg" type="f1a62948:ProjectNode" />
                 <item name="server" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="abyrvalg" type="f1a62948:ProjectNode" />
+                <item name="server" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="application" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="abyrvalg" type="f1a62948:ProjectNode" />
+                <item name="server" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -84,6 +104,12 @@
                 <item name="abyrvalg" type="f1a62948:ProjectNode" />
                 <item name="server" type="2d1252cf:ModuleNode" />
                 <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="abyrvalg" type="f1a62948:ProjectNode" />
+                <item name="server" type="2d1252cf:ModuleNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -121,8 +147,8 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
-  <component name="RunManager" selected="Gradle.abyrvalg:server [javadoc]">
-    <configuration name="abyrvalg [installDist]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.abyrvalg [build]">
+    <configuration name="abyrvalg [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -133,7 +159,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="installDist" />
+            <option value="build" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -143,7 +169,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="abyrvalg [publishAllPublicationsToGitHubPackagesRepository]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="abyrvalg [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -154,7 +180,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="publishAllPublicationsToGitHubPackagesRepository" />
+            <option value="clean" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -164,10 +190,10 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="abyrvalg [publishMavenPublicationToGitHubPackagesRepository]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="abyrvalg:server [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/server" />
         <option name="externalSystemIdString" value="GRADLE" />
         <option name="scriptParameters" />
         <option name="taskDescriptions">
@@ -175,7 +201,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="publishMavenPublicationToGitHubPackagesRepository" />
+            <option value="jar" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -206,26 +232,34 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="ApplicationKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <module name="abyrvalg.server.main" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" value="io.rsug.abyrvalg.server.ApplicationKt" />
-      <option name="WORKING_DIRECTORY" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="abyrvalg:server [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/server" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="run" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.abyrvalg [build]" />
+        <item itemvalue="Gradle.abyrvalg [clean]" />
+        <item itemvalue="Gradle.abyrvalg:server [run]" />
+        <item itemvalue="Gradle.abyrvalg:server [jar]" />
         <item itemvalue="Gradle.abyrvalg:server [javadoc]" />
-        <item itemvalue="Application.ApplicationKt" />
-        <item itemvalue="Gradle.abyrvalg [installDist]" />
-        <item itemvalue="Gradle.abyrvalg [publishMavenPublicationToGitHubPackagesRepository]" />
-        <item itemvalue="Gradle.abyrvalg [publishAllPublicationsToGitHubPackagesRepository]" />
       </list>
     </recent_temporary>
   </component>
@@ -350,7 +384,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619800901698</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="добавляем реакт-клиента и webjars">
+      <created>1620462664998</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1620462664998</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -378,7 +419,8 @@
     <MESSAGE value="тесты и примеры" />
     <MESSAGE value="выборка SWCV в тесте" />
     <MESSAGE value="публикация в GPR" />
-    <option name="LAST_COMMIT_MESSAGE" value="публикация в GPR" />
+    <MESSAGE value="добавляем реакт-клиента и webjars" />
+    <option name="LAST_COMMIT_MESSAGE" value="добавляем реакт-клиента и webjars" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
